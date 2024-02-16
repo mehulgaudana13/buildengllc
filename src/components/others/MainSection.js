@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import {useDispatch, useSelector} from 'react-redux'
+import { userPage } from '../common/redux/action/pageListService'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -11,6 +13,18 @@ const navigation = [
 
 export default function MainSection() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  let dispatch = useDispatch()
+  const pageList = useSelector(
+    (state) => state.auth
+    )?.page_list;
+
+  useEffect(()=>{
+    dispatch(userPage())
+  },[])
+  useEffect(()=>{
+
+    console.log('pageList', pageList)
+  },[pageList])
 
   return (
     <div className="bg-white">
